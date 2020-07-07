@@ -8,7 +8,9 @@ class ProjectIdeaHolder(private val view: View) : RecyclerView.ViewHolder(view) 
     lateinit var projectIdea: ProjectIdea
 
     fun bind(projectIdea: ProjectIdea) {
-        view.project_idea.text = projectIdea.text
+        view.apply {
+            project_idea.text = projectIdea.text
+        }
 
         this.projectIdea = projectIdea
     }

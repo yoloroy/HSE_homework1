@@ -13,12 +13,14 @@ class UserInfoHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     lateinit var userInfo: UserInfo
 
     fun bind(userInfo: UserInfo) {
-        view.user_name.text = userInfo.userName
-        view.grade.text = userInfo.grade
-        view.goto_github.setOnClickListener {
-            view.context.startActivity(
-                Intent(Intent.ACTION_VIEW, Uri.parse(userInfo.link))
-            )
+        view.apply {
+            user_name.text = userInfo.userName
+            grade.text = userInfo.grade
+            goto_github.setOnClickListener {
+                view.context.startActivity(
+                    Intent(Intent.ACTION_VIEW, Uri.parse(userInfo.link))
+                )
+            }
         }
 
         this.userInfo = userInfo

@@ -10,9 +10,12 @@ class SkillItemHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     lateinit var skillItem: SkillItem
 
     fun bind(skillItem: SkillItem) {
-        view.skill_name.text = skillItem.name
-        view.experience.text = skillItem.experience.toString()
+        view.apply {
+            skill_name.text = skillItem.name
+            experience.text = skillItem.experience.toString()
+        }
 
         this.skillItem = skillItem
     }
 }
+
