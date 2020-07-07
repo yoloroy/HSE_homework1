@@ -26,5 +26,5 @@ fun Number.toDp(view: View) =
     TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
         this.toFloat(),
-        view.getResources().getDisplayMetrics()
+        view.resources.displayMetrics
     ).toInt()
