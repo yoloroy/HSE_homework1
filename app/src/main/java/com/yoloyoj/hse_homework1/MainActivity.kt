@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity() {
                 Any(),
                 SkillItem("SQL", 1f),
                 SkillItem("Python", 4f),
-                SkillItem("C++", 3f)
+                SkillItem("C++", 3f),
+                SkillItem("Kotlin", 0.7f)
             )
         )
 
