@@ -14,22 +14,23 @@ import com.yoloyoj.hse_homework1.userinfo.UserInfoHolder
 
 class MainRecyclerAdapter(private var items: List<Any>) : RecyclerView.Adapter<ViewHolder>() {
 
-    override fun getItemViewType(position: Int) = when (position) {
-        0 -> 0 // user_info
-        1 -> 1 // project_info
-        2 -> 2 // header_skills
-        else -> 3 // skill_card_item
-    }
+    override fun getItemViewType(position: Int) =
+        when (position) {
+            0 -> 0 // user_info
+            1 -> 1 // project_info
+            2 -> 2 // header_skills
+            else -> 3 // skill_card_item
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return when(viewType) {
-                0 -> UserInfoHolder(inflater.inflate(R.layout.user_info, parent, false))
-                1 -> ProjectIdeaHolder(inflater.inflate(R.layout.project_info, parent, false))
-                2 -> EmptyViewHolder(inflater.inflate(R.layout.header_skills, parent, false))
-                3 -> SkillItemHolder(inflater.inflate(R.layout.skill_card_item, parent, false))
-                else -> throw Exception("Wrong viewType")
-            }
+        return when (viewType) {
+            0 -> UserInfoHolder(inflater.inflate(R.layout.user_info, parent, false))
+            1 -> ProjectIdeaHolder(inflater.inflate(R.layout.project_info, parent, false))
+            2 -> EmptyViewHolder(inflater.inflate(R.layout.header_skills, parent, false))
+            3 -> SkillItemHolder(inflater.inflate(R.layout.skill_card_item, parent, false))
+            else -> throw Exception("Wrong viewType")
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -40,7 +41,7 @@ class MainRecyclerAdapter(private var items: List<Any>) : RecyclerView.Adapter<V
         }
     }
 
-    override fun getItemCount() = items.count()
-
+    override fun getItemCount() =
+        items.count()
 }
 class EmptyViewHolder(itemView: View) : ViewHolder(itemView)

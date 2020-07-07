@@ -1,5 +1,5 @@
 package com.yoloyoj.hse_homework1.projectidea
 
-class ProjectIdea (
+class ProjectIdea(
     val text: String
 )
