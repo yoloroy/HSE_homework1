@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">HSE_homework1</string>
+    <string name="app_name">About me</string>
+    <string name="project_idea">Project idea</string>
+    <string name="skills">Skills</string>
+    <string name="user_name">User name</string>
+    <string name="grade">Grade 9</string>
 </resources>
