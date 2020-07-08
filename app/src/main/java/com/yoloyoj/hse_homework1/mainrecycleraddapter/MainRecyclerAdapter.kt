@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.yoloyoj.hse_homework1.R
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.projectidea.ProjectIdea
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.projectidea.ProjectIdeaHolder
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.skillfilter.SkillFilter
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.skillfilter.SkillFilterHolder
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.skillitem.SkillItem
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.skillitem.SkillItemHolder
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.userinfo.UserInfo
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.userinfo.UserInfoHolder
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.ProjectIdea
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.holders.ProjectIdeaHolder
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.SkillFilter
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.holders.SkillFilterHolder
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.SkillItem
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.holders.SkillItemHolder
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.UserInfo
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.holders.UserInfoHolder
 
 class MainRecyclerAdapter(private var items: List<Any>) : RecyclerView.Adapter<ViewHolder>() {
 

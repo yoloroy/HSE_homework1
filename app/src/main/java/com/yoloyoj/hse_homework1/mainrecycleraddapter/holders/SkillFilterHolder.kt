@@ -1,7 +1,8 @@
-package com.yoloyoj.hse_homework1.mainrecycleraddapter.skillfilter
+package com.yoloyoj.hse_homework1.mainrecycleraddapter.holders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.SkillFilter
 import kotlinx.android.synthetic.main.header_skills.view.*
 
 class SkillFilterHolder(private val view: View) : RecyclerView.ViewHolder(view) {

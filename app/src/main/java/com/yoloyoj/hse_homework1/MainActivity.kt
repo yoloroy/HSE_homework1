@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yoloyoj.hse_homework1.mainrecycleraddapter.MainRecyclerAdapter
 import com.yoloyoj.hse_homework1.mainrecycleraddapter.SpaceItemDecoration
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.projectidea.ProjectIdea
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.skillfilter.SkillFilter
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.skillitem.SkillItem
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.userinfo.UserInfo
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.ProjectIdea
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.SkillFilter
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.SkillItem
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.UserInfo
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
