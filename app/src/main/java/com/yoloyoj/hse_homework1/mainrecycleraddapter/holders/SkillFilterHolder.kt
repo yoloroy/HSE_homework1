@@ -1,7 +1,9 @@
 package com.yoloyoj.hse_homework1.mainrecycleraddapter.holders
 
+import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.yoloyoj.hse_homework1.FilterActivity
 import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.SkillFilter
 import kotlinx.android.synthetic.main.header_skills.view.*
 
@@ -11,7 +13,7 @@ class SkillFilterHolder(private val view: View) : RecyclerView.ViewHolder(view) 
     fun bind(skillFilter: SkillFilter) {
         view.apply {
             filter_button.setOnClickListener {
-                return@setOnClickListener // TODO
+                it.context.startActivity(Intent(it.context, FilterActivity::class.java))
             }
         }
 
