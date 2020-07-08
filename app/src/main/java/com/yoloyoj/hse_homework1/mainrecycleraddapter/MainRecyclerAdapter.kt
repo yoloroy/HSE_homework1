@@ -1,55 +1,59 @@
 package com.yoloyoj.hse_homework1.mainrecycleraddapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.yoloyoj.hse_homework1.R
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.ProjectIdea
 import com.yoloyoj.hse_homework1.mainrecycleraddapter.holders.ProjectIdeaHolder
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.SkillFilter
 import com.yoloyoj.hse_homework1.mainrecycleraddapter.holders.SkillFilterHolder
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.SkillItem
 import com.yoloyoj.hse_homework1.mainrecycleraddapter.holders.SkillItemHolder
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.UserInfo
 import com.yoloyoj.hse_homework1.mainrecycleraddapter.holders.UserInfoHolder
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.ProjectIdea
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.SkillFilter
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.SkillItem
+import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.UserInfo
+
+const val USER_INFO = 0
+const val PROJECT_INFO = 1
+const val HEADER_SKILLS = 2
+const val SKILL_ITEM = 3
 
 class MainRecyclerAdapter(private var items: List<Any>) : RecyclerView.Adapter<ViewHolder>() {
 
     override fun getItemViewType(position: Int) =
         when (position) {
-            0 -> 0 // user_info
-            1 -> 1 // project_info
-            2 -> 2 // header_skills
-            else -> 3 // skill_card_item
+            0 -> USER_INFO
+            1 -> PROJECT_INFO
+            2 -> HEADER_SKILLS
+            else -> SKILL_ITEM
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            0 -> UserInfoHolder(
+            USER_INFO -> UserInfoHolder(
                 inflater.inflate(
                     R.layout.user_info,
                     parent,
                     false
                 )
             )
-            1 -> ProjectIdeaHolder(
+            PROJECT_INFO -> ProjectIdeaHolder(
                 inflater.inflate(
                     R.layout.project_info,
                     parent,
                     false
                 )
             )
-            2 -> SkillFilterHolder(
+            HEADER_SKILLS -> SkillFilterHolder(
                 inflater.inflate(
                     R.layout.header_skills,
                     parent,
                     false
                 )
             )
-            3 -> SkillItemHolder(
+            SKILL_ITEM -> SkillItemHolder(
                 inflater.inflate(
                     R.layout.skill_card_item,
                     parent,
@@ -62,14 +66,13 @@ class MainRecyclerAdapter(private var items: List<Any>) : RecyclerView.Adapter<V
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            0 -> (holder as UserInfoHolder).bind(items[position] as UserInfo)
-            1 -> (holder as ProjectIdeaHolder).bind(items[position] as ProjectIdea)
-            2 -> (holder as SkillFilterHolder).bind(items[position] as SkillFilter)
-            3 -> (holder as SkillItemHolder).bind(items[position] as SkillItem)
+            USER_INFO -> (holder as UserInfoHolder).bind(items[position] as UserInfo)
+            PROJECT_INFO -> (holder as ProjectIdeaHolder).bind(items[position] as ProjectIdea)
+            HEADER_SKILLS -> (holder as SkillFilterHolder).bind(items[position] as SkillFilter)
+            SKILL_ITEM -> (holder as SkillItemHolder).bind(items[position] as SkillItem)
         }
     }
 
     override fun getItemCount() =
         items.count()
 }
-class EmptyViewHolder(itemView: View) : ViewHolder(itemView)
