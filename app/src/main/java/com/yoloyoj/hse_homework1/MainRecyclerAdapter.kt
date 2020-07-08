@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.yoloyoj.hse_homework1.projectidea.ProjectIdea
 import com.yoloyoj.hse_homework1.projectidea.ProjectIdeaHolder
+import com.yoloyoj.hse_homework1.skillfilter.SkillFilter
+import com.yoloyoj.hse_homework1.skillfilter.SkillFilterHolder
 import com.yoloyoj.hse_homework1.skillitem.SkillItem
 import com.yoloyoj.hse_homework1.skillitem.SkillItemHolder
 import com.yoloyoj.hse_homework1.userinfo.UserInfo
@@ -27,7 +29,7 @@ class MainRecyclerAdapter(private var items: List<Any>) : RecyclerView.Adapter<V
         return when (viewType) {
             0 -> UserInfoHolder(inflater.inflate(R.layout.user_info, parent, false))
             1 -> ProjectIdeaHolder(inflater.inflate(R.layout.project_info, parent, false))
-            2 -> EmptyViewHolder(inflater.inflate(R.layout.header_skills, parent, false))
+            2 -> SkillFilterHolder(inflater.inflate(R.layout.header_skills, parent, false))
             3 -> SkillItemHolder(inflater.inflate(R.layout.skill_card_item, parent, false))
             else -> throw Exception("Wrong viewType")
         }
@@ -37,6 +39,7 @@ class MainRecyclerAdapter(private var items: List<Any>) : RecyclerView.Adapter<V
         when (getItemViewType(position)) {
             0 -> (holder as UserInfoHolder).bind(items[position] as UserInfo)
             1 -> (holder as ProjectIdeaHolder).bind(items[position] as ProjectIdea)
+            2 -> (holder as SkillFilterHolder).bind(items[position] as SkillFilter)
             3 -> (holder as SkillItemHolder).bind(items[position] as SkillItem)
         }
     }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yoloyoj.hse_homework1.projectidea.ProjectIdea
+import com.yoloyoj.hse_homework1.skillfilter.SkillFilter
 import com.yoloyoj.hse_homework1.skillitem.SkillItem
 import com.yoloyoj.hse_homework1.userinfo.UserInfo
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             listOf(
                 UserInfo("Ларюшкин Сергей", "Выпускник", "https://github.com/yoloroy"),
                 ProjectIdea("очень крутой проект с очень оригинальными идеями"),
-                Any(),
+                SkillFilter(),
                 SkillItem("SQL", 1f),
                 SkillItem("Python", 4f),
                 SkillItem("C++", 3f),
