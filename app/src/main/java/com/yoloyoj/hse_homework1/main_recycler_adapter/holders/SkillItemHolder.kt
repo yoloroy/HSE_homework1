@@ -1,8 +1,8 @@
-package com.yoloyoj.hse_homework1.mainrecycleraddapter.holders
+package com.yoloyoj.hse_homework1.main_recycler_adapter.holders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.SkillItem
+import com.yoloyoj.hse_homework1.main_recycler_adapter.models.SkillItem
 import kotlinx.android.synthetic.main.skill_card_item.view.*
 
 class SkillItemHolder(private val view: View) : RecyclerView.ViewHolder(view) {

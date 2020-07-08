@@ -1,10 +1,10 @@
-package com.yoloyoj.hse_homework1.mainrecycleraddapter.holders
+package com.yoloyoj.hse_homework1.main_recycler_adapter.holders
 
 import android.content.Intent
 import android.net.Uri
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.yoloyoj.hse_homework1.mainrecycleraddapter.models.UserInfo
+import com.yoloyoj.hse_homework1.main_recycler_adapter.models.UserInfo
 import kotlinx.android.synthetic.main.user_info.view.*
 
 class UserInfoHolder(private val view: View) : RecyclerView.ViewHolder(view) {

@@ -1,4 +1,4 @@
-package com.yoloyoj.hse_homework1.mainrecycleraddapter
+package com.yoloyoj.hse_homework1.main_recycler_adapter
 
 import android.graphics.Rect
 import android.util.TypedValue
