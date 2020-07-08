@@ -1,4 +1,4 @@
-package com.yoloyoj.hse_homework1.projectidea
+package com.yoloyoj.hse_homework1.mainrecycleraddapter.projectidea
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

@@ -1,4 +1,4 @@
-package com.yoloyoj.hse_homework1.userinfo
+package com.yoloyoj.hse_homework1.mainrecycleraddapter.userinfo
 
 class UserInfo(
     val userName: String,

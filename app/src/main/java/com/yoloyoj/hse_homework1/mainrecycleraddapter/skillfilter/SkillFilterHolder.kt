@@ -1,4 +1,4 @@
-package com.yoloyoj.hse_homework1.skillfilter
+package com.yoloyoj.hse_homework1.mainrecycleraddapter.skillfilter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

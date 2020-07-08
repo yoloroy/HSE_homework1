@@ -1,4 +1,4 @@
-package com.yoloyoj.hse_homework1.skillitem
+package com.yoloyoj.hse_homework1.mainrecycleraddapter.skillitem
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +10,10 @@ class SkillItemHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(skillItem: SkillItem) {
         view.apply {
             skill_name.text = skillItem.name
-            experience.text = naming(skillItem.experience)
+            experience.text =
+                naming(
+                    skillItem.experience
+                )
         }
 
         this.skillItem = skillItem

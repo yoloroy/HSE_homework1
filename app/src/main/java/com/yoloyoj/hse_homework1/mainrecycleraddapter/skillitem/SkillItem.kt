@@ -1,4 +1,4 @@
-package com.yoloyoj.hse_homework1.skillitem
+package com.yoloyoj.hse_homework1.mainrecycleraddapter.skillitem
 
 class SkillItem(
     val name: String,
