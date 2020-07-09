@@ -90,6 +90,10 @@ class MainRecyclerAdapter(private var items: List<Any>, val filter: List<Boolean
                                 .distinct()
                                 .toFloatArray()
                         )
+                        intent.putExtra(
+                            "nowFilter",
+                            filter.toBooleanArray()
+                        )
                         (it.context as MainActivity).startActivityForResult(intent, 0)
                     }
                 }

@@ -18,12 +18,13 @@ class FilterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_filter)
 
         val toFilter = intent.getFloatArrayExtra("toFilter")!!
+        val nowFilter = intent.getBooleanArrayExtra("nowFilter")!!
 
         val adapter =
             FilterRecycleAdapter(
                 toFilter
-                    .map {
-                        FilterItem(it)
+                    .mapIndexed { index, item ->
+                        FilterItem(item, value = nowFilter[index])
                     }
             )
 
