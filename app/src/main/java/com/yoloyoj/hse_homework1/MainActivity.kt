@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         )
     )
 
-    private var filter = emptyList<Int>()
+    private var filter = skills.map { it.experience.toInt() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                     ),
                     SkillFilter()
                 ) + skills,
-                skills.map { (it.experience.toInt() in filter) or filter.isEmpty() }
+                skills.map { (it.experience.toInt() in filter) }
             )
 
         recycler_view.adapter = adapter
