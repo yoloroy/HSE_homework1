@@ -13,27 +13,6 @@ import kotlinx.android.synthetic.main.activity_filter.*
 class FilterActivity : AppCompatActivity() {
     private var filter = emptyList<Int>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_filter)
-
-        val toFilter = intent.getFloatArrayExtra("toFilter")!!
-        val nowFilter = intent.getBooleanArrayExtra("nowFilter")!!
-        filter = toFilter.filterIndexed { index, _ -> nowFilter[index] }.map { it.toInt() }
-
-        val adapter =
-            FilterRecycleAdapter(
-                toFilter
-                    .mapIndexed { index, item ->
-                        FilterItem(item, value = nowFilter[index])
-                    }
-            )
-
-        checkbox_list.layoutManager = LinearLayoutManager(this)
-
-        checkbox_list.adapter = adapter
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBooleanArray(
@@ -69,15 +48,54 @@ class FilterActivity : AppCompatActivity() {
         checkbox_list.adapter = adapter
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_filter)
+
+        val toFilter = intent.getFloatArrayExtra("toFilter")!!
+        val nowFilter = intent.getBooleanArrayExtra("nowFilter")!!
+        filter = toFilter.filterIndexed { index, _ -> nowFilter[index] }.map { it.toInt() }
+
+        val adapter =
+            FilterRecycleAdapter(
+                toFilter
+                    .mapIndexed { index, item ->
+                        FilterItem(item, value = nowFilter[index])
+                    }
+            )
+
+        checkbox_list.layoutManager = LinearLayoutManager(this)
+
+        checkbox_list.adapter = adapter
+    }
+
+    override fun onStart() {
+        all_check.setOnCheckedChangeListener { _, b ->
+            val adapter =
+                FilterRecycleAdapter(
+                    (checkbox_list.adapter as FilterRecycleAdapter).items
+                        .map { item ->
+                            FilterItem(item.exp, value = b)
+                        }
+                )
+
+            checkbox_list.adapter = adapter
+        }
+
+        super.onStart()
+    }
+
     @Suppress("UNUSED_PARAMETER")
-    fun onFiltersChosen(view: View) =
+    fun onFiltersChosen(view: View) {
         sendResult(
             (checkbox_list.adapter as FilterRecycleAdapter)
                 .items.filter { it.value }.map { it.exp.toInt() }.toIntArray()
         )
+    }
 
-    override fun onBackPressed() =
+    override fun onBackPressed() {
         sendResult(filter.toIntArray())
+    }
 
     private fun sendResult(result: IntArray) {
         val answerIntent = Intent()
