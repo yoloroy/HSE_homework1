@@ -18,6 +18,5 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:backgroundTint="#0000"
-        android:tint="#555"
         app:srcCompat="@drawable/ic_filter" />
 </LinearLayout>

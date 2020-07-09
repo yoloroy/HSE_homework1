@@ -1,5 +1,6 @@
 package com.yoloyoj.hse_homework1
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,26 @@ import com.yoloyoj.hse_homework1.main_recycler_adapter.models.UserInfo
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private var skills = listOf(
+        SkillItem(
+            "SQL",
+            1f
+        ),
+        SkillItem(
+            "Python",
+            4f
+        ),
+        SkillItem(
+            "C++",
+            3f
+        ),
+        SkillItem(
+            "Kotlin",
+            0.7f
+        )
+    )
+
+    var filter = emptyList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +40,17 @@ class MainActivity : AppCompatActivity() {
 
         recycler_view.layoutManager = LinearLayoutManager(this)
 
+        loadAdapter()
+        recycler_view.addItemDecoration(SpaceItemDecoration())
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        filter = data?.getIntArrayExtra("filter")!!.toList()
+        loadAdapter()
+    }
+
+    fun loadAdapter() {
         val adapter =
             MainRecyclerAdapter(
                 listOf(
@@ -30,27 +62,11 @@ class MainActivity : AppCompatActivity() {
                     ProjectIdea(
                         "очень крутой проект с очень оригинальными идеями"
                     ),
-                    SkillFilter(),
-                    SkillItem(
-                        "SQL",
-                        1f
-                    ),
-                    SkillItem(
-                        "Python",
-                        4f
-                    ),
-                    SkillItem(
-                        "C++",
-                        3f
-                    ),
-                    SkillItem(
-                        "Kotlin",
-                        0.7f
-                    )
-                )
+                    SkillFilter()
+                ) + skills,
+                skills.map { (it.experience.toInt() in filter) or filter.isEmpty() }
             )
 
         recycler_view.adapter = adapter
-        recycler_view.addItemDecoration(SpaceItemDecoration())
     }
 }

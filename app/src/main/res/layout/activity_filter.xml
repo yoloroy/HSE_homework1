@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".FilterActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/checkbox_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
         tools:itemCount="20"
         tools:listitem="@layout/filter_item" />
-</FrameLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/filter_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="onFiltersChosen"
+        android:paddingBottom="0dp"
+        android:text="Применить"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        app:backgroundTint="#fff"
+        app:cornerRadius="@dimen/dimenCornerCardInner"
+        app:strokeColor="@color/colorPrimaryLight"
+        app:strokeWidth="1dp" />
+
+</LinearLayout>

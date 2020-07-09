@@ -1,9 +1,13 @@
 package com.yoloyoj.hse_homework1.main_recycler_adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View.*
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.yoloyoj.hse_homework1.FilterActivity
+import com.yoloyoj.hse_homework1.MainActivity
 import com.yoloyoj.hse_homework1.R
 import com.yoloyoj.hse_homework1.main_recycler_adapter.holders.ProjectIdeaHolder
 import com.yoloyoj.hse_homework1.main_recycler_adapter.holders.SkillFilterHolder
@@ -13,13 +17,14 @@ import com.yoloyoj.hse_homework1.main_recycler_adapter.models.ProjectIdea
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.SkillFilter
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.SkillItem
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.UserInfo
+import kotlinx.android.synthetic.main.header_skills.view.*
 
 const val USER_INFO = 0
 const val PROJECT_INFO = 1
 const val HEADER_SKILLS = 2
 const val SKILL_ITEM = 3
 
-class MainRecyclerAdapter(private var items: List<Any>) : RecyclerView.Adapter<ViewHolder>() {
+class MainRecyclerAdapter(private var items: List<Any>, val filter: List<Boolean>) : RecyclerView.Adapter<ViewHolder>() {
 
     override fun getItemViewType(position: Int) =
         when (position) {
@@ -68,11 +73,41 @@ class MainRecyclerAdapter(private var items: List<Any>) : RecyclerView.Adapter<V
         when (getItemViewType(position)) {
             USER_INFO -> (holder as UserInfoHolder).bind(items[position] as UserInfo)
             PROJECT_INFO -> (holder as ProjectIdeaHolder).bind(items[position] as ProjectIdea)
-            HEADER_SKILLS -> (holder as SkillFilterHolder).bind(items[position] as SkillFilter)
-            SKILL_ITEM -> (holder as SkillItemHolder).bind(items[position] as SkillItem)
+            HEADER_SKILLS -> // TODO: refactor this
+                (holder as SkillFilterHolder).view.apply {
+                    if (filter.contains(false))
+                        filter_button.setImageResource(R.drawable.ic_filter_alt_black_checked_24dp)
+
+                    filter_button.setOnClickListener {
+                        val intent = Intent(it.context, FilterActivity::class.java)
+                        intent.putExtra(
+                            "toFilter",
+                            items
+                                .slice(3 until items.count())
+                                .map { item ->
+                                    (item as SkillItem).experience
+                                }
+                                .distinct()
+                                .toFloatArray()
+                        )
+                        (it.context as MainActivity).startActivityForResult(intent, 0)
+                    }
+                }
+            SKILL_ITEM ->
+                (holder as SkillItemHolder).bind(items.available[position] as SkillItem)
         }
     }
 
     override fun getItemCount() =
-        items.count()
+        items.available.count()
+
+    private val List<Any>.available
+        get() = filterIndexed { index, _ ->
+            (index < 3) or filter.run {
+                if (this.isNotEmpty() and (index >= 3))
+                    get(index - 3)
+                else
+                    true
+            }
+        }
 }
