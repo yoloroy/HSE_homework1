@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         )
     )
 
-    var filter = emptyList<Int>()
+    private var filter = emptyList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,20 @@ class MainActivity : AppCompatActivity() {
         loadAdapter()
     }
 
-    fun loadAdapter() {
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putIntArray("filter", filter.toIntArray())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        filter = savedInstanceState.getIntArray("filter")!!.asList()
+        loadAdapter()
+    }
+
+    private fun loadAdapter() {
         val adapter =
             MainRecyclerAdapter(
                 listOf(

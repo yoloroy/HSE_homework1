@@ -1,9 +1,8 @@
 package com.yoloyoj.hse_homework1
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +11,7 @@ import com.yoloyoj.hse_homework1.filter_recycler_adapter.models.FilterItem
 import kotlinx.android.synthetic.main.activity_filter.*
 
 class FilterActivity : AppCompatActivity() {
+    var filter = emptyList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +19,7 @@ class FilterActivity : AppCompatActivity() {
 
         val toFilter = intent.getFloatArrayExtra("toFilter")!!
         val nowFilter = intent.getBooleanArrayExtra("nowFilter")!!
+        filter = toFilter.filterIndexed { index, _ -> nowFilter[index] }.map { it.toInt() }
 
         val adapter =
             FilterRecycleAdapter(
@@ -40,6 +41,10 @@ class FilterActivity : AppCompatActivity() {
             (checkbox_list.adapter as FilterRecycleAdapter)
                 .items.map { it.value }.toBooleanArray()
         )
+        outState.putIntArray(
+            "nowFilter",
+            filter.toIntArray()
+        )
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -50,6 +55,8 @@ class FilterActivity : AppCompatActivity() {
         var savedChecks = savedInstanceState.getBooleanArray("saved_checks")
         if (savedChecks == null)
             savedChecks = List(toFilter.size) { true }.toBooleanArray()
+
+        filter = savedInstanceState.getIntArray("nowFilter")!!.toList()
 
         val adapter =
             FilterRecycleAdapter(
@@ -73,5 +80,26 @@ class FilterActivity : AppCompatActivity() {
 
         setResult(0, answerIntent)
         finish()
+    }
+
+    override fun onBackPressed() {
+        val answerIntent = Intent()
+
+        answerIntent.putExtra(
+            "filter",
+            filter.toIntArray()
+        )
+
+        setResult(0, answerIntent)
+        finish()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
