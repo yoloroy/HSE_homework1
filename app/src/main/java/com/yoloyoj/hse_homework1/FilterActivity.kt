@@ -11,7 +11,7 @@ import com.yoloyoj.hse_homework1.filter_recycler_adapter.models.FilterItem
 import kotlinx.android.synthetic.main.activity_filter.*
 
 class FilterActivity : AppCompatActivity() {
-    var filter = emptyList<Int>()
+    private var filter = emptyList<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,11 +69,15 @@ class FilterActivity : AppCompatActivity() {
         checkbox_list.adapter = adapter
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun onFiltersChosen(view: View) =
-        sendResult((checkbox_list.adapter as FilterRecycleAdapter)
-            .items.filter { it.value }.map { it.exp.toInt() }.toIntArray())
+        sendResult(
+            (checkbox_list.adapter as FilterRecycleAdapter)
+                .items.filter { it.value }.map { it.exp.toInt() }.toIntArray()
+        )
 
-    override fun onBackPressed() = sendResult(filter.toIntArray())
+    override fun onBackPressed() =
+        sendResult(filter.toIntArray())
 
     private fun sendResult(result: IntArray) {
         val answerIntent = Intent()
