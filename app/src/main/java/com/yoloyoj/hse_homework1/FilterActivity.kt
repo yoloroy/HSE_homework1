@@ -69,25 +69,18 @@ class FilterActivity : AppCompatActivity() {
         checkbox_list.adapter = adapter
     }
 
-    fun onFiltersChosen(view: View) {
+    fun onFiltersChosen(view: View) =
+        sendResult((checkbox_list.adapter as FilterRecycleAdapter)
+            .items.filter { it.value }.map { it.exp.toInt() }.toIntArray())
+
+    override fun onBackPressed() = sendResult(filter.toIntArray())
+
+    private fun sendResult(result: IntArray) {
         val answerIntent = Intent()
 
         answerIntent.putExtra(
             "filter",
-            (checkbox_list.adapter as FilterRecycleAdapter)
-                .items.filter { it.value }.map { it.exp.toInt() }.toIntArray()
-        )
-
-        setResult(0, answerIntent)
-        finish()
-    }
-
-    override fun onBackPressed() {
-        val answerIntent = Intent()
-
-        answerIntent.putExtra(
-            "filter",
-            filter.toIntArray()
+            result
         )
 
         setResult(0, answerIntent)
