@@ -8,7 +8,7 @@ import com.yoloyoj.hse_homework1.R
 import com.yoloyoj.hse_homework1.filter_recycler_adapter.holders.FilterItemHolder
 import com.yoloyoj.hse_homework1.filter_recycler_adapter.models.FilterItem
 
-class FilterRecycleAdapter (var items: List<FilterItem>) : RecyclerView.Adapter<FilterItemHolder>() {
+class FilterRecycleAdapter(var items: List<FilterItem>) : RecyclerView.Adapter<FilterItemHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterItemHolder {
         val inflater = LayoutInflater.from(parent.context)
         return FilterItemHolder(

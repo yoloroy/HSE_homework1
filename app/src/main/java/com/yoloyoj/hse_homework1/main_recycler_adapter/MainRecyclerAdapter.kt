@@ -14,7 +14,6 @@ import com.yoloyoj.hse_homework1.main_recycler_adapter.holders.SkillFilterHolder
 import com.yoloyoj.hse_homework1.main_recycler_adapter.holders.SkillItemHolder
 import com.yoloyoj.hse_homework1.main_recycler_adapter.holders.UserInfoHolder
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.ProjectIdea
-import com.yoloyoj.hse_homework1.main_recycler_adapter.models.SkillFilter
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.SkillItem
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.UserInfo
 import kotlinx.android.synthetic.main.header_skills.view.*
