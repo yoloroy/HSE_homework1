@@ -11,6 +11,7 @@ import com.yoloyoj.hse_homework1.main_recycler_adapter.holders.SkillFilterHolder
 import com.yoloyoj.hse_homework1.main_recycler_adapter.holders.SkillItemHolder
 import com.yoloyoj.hse_homework1.main_recycler_adapter.holders.UserInfoHolder
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.ProjectIdea
+import com.yoloyoj.hse_homework1.main_recycler_adapter.models.SkillFilter
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.SkillItem
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.UserInfo
 import kotlinx.android.synthetic.main.header_skills.view.*
@@ -69,26 +70,17 @@ class MainRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        @Suppress("UNCHECKED_CAST")
         when (getItemViewType(position)) {
             USER_INFO ->
                 (holder as UserInfoHolder).bind(items[position] as UserInfo)
             PROJECT_INFO ->
                 (holder as ProjectIdeaHolder).bind(items[position] as ProjectIdea)
             HEADER_SKILLS ->
-                (holder as SkillFilterHolder).view.apply {
-                    if (filter.contains(false))
-                        filter_button.setImageResource(
-                            R.drawable.ic_filter_alt_black_checked_24dp
-                        )
-
-                    filter_button.setOnClickListener {
-                        @Suppress("UNCHECKED_CAST")
-                        (it.context as MainActivity).updateFiltering(
-                            items.slice(3 until items.count()) as List<SkillItem>,
-                            filter
-                        )
-                    }
-                }
+                (holder as SkillFilterHolder).bind(SkillFilter(
+                    items.slice(3 until items.count()) as List<SkillItem>,
+                    filter
+                ))
             SKILL_ITEM ->
                 (holder as SkillItemHolder).bind(items.available[position] as SkillItem)
         }

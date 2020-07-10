@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yoloyoj.hse_homework1.main_recycler_adapter.MainRecyclerAdapter
 import com.yoloyoj.hse_homework1.main_recycler_adapter.SpaceItemDecoration
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.ProjectIdea
-import com.yoloyoj.hse_homework1.main_recycler_adapter.models.SkillFilter
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.SkillItem
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.UserInfo
 import kotlinx.android.synthetic.main.activity_main.*
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                     ProjectIdea(
                         "очень крутой проект с очень оригинальными идеями"
                     ),
-                    SkillFilter()
+                    Any() // initialization in the adapter {SkillFilter}
                 ) + skills,
                 skills.map { (it.experience.toInt() in filter) }
             )
