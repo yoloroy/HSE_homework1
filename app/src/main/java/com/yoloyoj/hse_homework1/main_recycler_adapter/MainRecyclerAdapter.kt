@@ -78,22 +78,11 @@ class MainRecyclerAdapter(private var items: List<Any>, val filter: List<Boolean
                         filter_button.setImageResource(R.drawable.ic_filter_alt_black_checked_24dp)
 
                     filter_button.setOnClickListener {
-                        val intent = Intent(it.context, FilterActivity::class.java)
-                        intent.putExtra(
-                            "toFilter",
-                            items
-                                .slice(3 until items.count())
-                                .map { item ->
-                                    (item as SkillItem).experience
-                                }
-                                .distinct()
-                                .toFloatArray()
+                        @Suppress("UNCHECKED_CAST")
+                        (it.context as MainActivity).updateFiltering(
+                            items.slice(3 until items.count()) as List<SkillItem>,
+                            filter
                         )
-                        intent.putExtra(
-                            "nowFilter",
-                            filter.toBooleanArray()
-                        )
-                        (it.context as MainActivity).startActivityForResult(intent, 0)
                     }
                 }
             SKILL_ITEM ->

@@ -82,4 +82,22 @@ class MainActivity : AppCompatActivity() {
 
         recycler_view.adapter = adapter
     }
+
+    fun updateFiltering(items: List<SkillItem>, currentFilter: List<Boolean>) {
+        val intent = Intent(this, FilterActivity::class.java)
+        intent.putExtra(
+            "toFilter",
+            items
+                .map { item ->
+                    item.experience
+                }
+                .distinct()
+                .toFloatArray()
+        )
+        intent.putExtra(
+            "nowFilter",
+            currentFilter.toBooleanArray()
+        )
+        startActivityForResult(intent, 0)
+    }
 }
