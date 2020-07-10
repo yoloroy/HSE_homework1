@@ -45,20 +45,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        filter = data?.getIntArrayExtra("filter")!!.toList()
+        filter = data?.getIntArrayExtra(FILTER_STATES)!!.toList()
         loadAdapter()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putIntArray("filter", filter.toIntArray())
+        outState.putIntArray(FILTER_STATES, filter.toIntArray())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        filter = savedInstanceState.getIntArray("filter")!!.asList()
+        filter = savedInstanceState.getIntArray(FILTER_STATES)!!.asList()
         loadAdapter()
     }
 
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     fun updateFiltering(items: List<SkillItem>, currentFilter: List<Boolean>) {
         val intent = Intent(this, FilterActivity::class.java)
         intent.putExtra(
-            "toFilter",
+            TO_FILTER,
             items
                 .map { item ->
                     item.experience
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                 .toFloatArray()
         )
         intent.putExtra(
-            "nowFilter",
+            SAVED_CHECKING,
             currentFilter.toBooleanArray()
         )
         startActivityForResult(intent, 0)

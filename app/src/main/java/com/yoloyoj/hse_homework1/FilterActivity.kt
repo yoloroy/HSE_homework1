@@ -10,18 +10,23 @@ import com.yoloyoj.hse_homework1.filter_recycler_adapter.FilterRecycleAdapter
 import com.yoloyoj.hse_homework1.filter_recycler_adapter.models.FilterItem
 import kotlinx.android.synthetic.main.activity_filter.*
 
+const val SAVED_CHECKING = "saved_checks"
+const val CURRENT_FILTER = "nowFilter" // filter state before go to here
+const val TO_FILTER = "toFilter" // skill values
+const val FILTER_STATES = "filter"
+
 class FilterActivity : AppCompatActivity() {
     private var filter = emptyList<Int>()
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBooleanArray(
-            "saved_checks",
+            SAVED_CHECKING,
             (checkbox_list.adapter as FilterRecycleAdapter)
                 .items.map { it.value }.toBooleanArray()
         )
         outState.putIntArray(
-            "nowFilter",
+            CURRENT_FILTER,
             filter.toIntArray()
         )
     }
@@ -29,13 +34,13 @@ class FilterActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        val toFilter = intent.getFloatArrayExtra("toFilter")!!
+        val toFilter = intent.getFloatArrayExtra(TO_FILTER)!!
 
-        var savedChecks = savedInstanceState.getBooleanArray("saved_checks")
+        var savedChecks = savedInstanceState.getBooleanArray(SAVED_CHECKING)
         if (savedChecks == null)
             savedChecks = List(toFilter.size) { true }.toBooleanArray()
 
-        filter = savedInstanceState.getIntArray("nowFilter")!!.toList()
+        filter = savedInstanceState.getIntArray(CURRENT_FILTER)!!.toList()
 
         val adapter =
             FilterRecycleAdapter(
@@ -52,8 +57,8 @@ class FilterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filter)
 
-        val toFilter = intent.getFloatArrayExtra("toFilter")!!
-        val nowFilter = intent.getBooleanArrayExtra("nowFilter")!!
+        val toFilter = intent.getFloatArrayExtra(TO_FILTER)!!
+        val nowFilter = intent.getBooleanArrayExtra(CURRENT_FILTER)!!
         filter = toFilter.filterIndexed { index, _ -> nowFilter[index] }.map { it.toInt() }
 
         val adapter =
@@ -101,7 +106,7 @@ class FilterActivity : AppCompatActivity() {
         val answerIntent = Intent()
 
         answerIntent.putExtra(
-            "filter",
+            FILTER_STATES,
             result
         )
 
