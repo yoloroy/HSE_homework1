@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_filter.*
 
 const val SAVED_CHECKING = "saved_checks"
 const val CURRENT_FILTER = "nowFilter" // filter state before go to here
-const val TO_FILTER = "toFilter" // skill values
+const val YEARS_TO_FILTER = "toFilter" // skill values
 const val FILTER_STATES = "filter"
 
 class FilterActivity : AppCompatActivity() {
@@ -20,11 +20,13 @@ class FilterActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+
         outState.putBooleanArray(
             SAVED_CHECKING,
             (checkbox_list.adapter as FilterRecycleAdapter)
                 .items.map { it.value }.toBooleanArray()
         )
+
         outState.putIntArray(
             CURRENT_FILTER,
             filter.toIntArray()
@@ -34,60 +36,57 @@ class FilterActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        val toFilter = intent.getFloatArrayExtra(TO_FILTER)!!
+        val yearsToFilter = intent.getFloatArrayExtra(YEARS_TO_FILTER)!!
 
         var savedChecks = savedInstanceState.getBooleanArray(SAVED_CHECKING)
         if (savedChecks == null)
-            savedChecks = List(toFilter.size) { true }.toBooleanArray()
+            savedChecks = List(yearsToFilter.size) { true }.toBooleanArray()
 
         filter = savedInstanceState.getIntArray(CURRENT_FILTER)!!.toList()
 
-        val adapter =
-            FilterRecycleAdapter(
-                toFilter
-                    .mapIndexed { index, fl ->
-                        FilterItem(fl, savedChecks[index])
-                    }
-            )
-
-        checkbox_list.adapter = adapter
+        loadAdapter(
+            yearsToFilter.asList().product(savedChecks.asList()).map {
+                FilterItem(it.first, it.second)
+            }
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filter)
 
-        val toFilter = intent.getFloatArrayExtra(TO_FILTER)!!
-        val nowFilter = intent.getBooleanArrayExtra(CURRENT_FILTER)!!
-        filter = toFilter.filterIndexed { index, _ -> nowFilter[index] }.map { it.toInt() }
-
-        val adapter =
-            FilterRecycleAdapter(
-                toFilter
-                    .mapIndexed { index, item ->
-                        FilterItem(item, value = nowFilter[index])
-                    }
-            )
-
         checkbox_list.layoutManager = LinearLayoutManager(this)
 
-        checkbox_list.adapter = adapter
+        loadExtras()
     }
 
     override fun onStart() {
         all_check.setOnCheckedChangeListener { _, b ->
-            val adapter =
-                FilterRecycleAdapter(
-                    (checkbox_list.adapter as FilterRecycleAdapter).items
-                        .map { item ->
-                            FilterItem(item.exp, value = b)
-                        }
-                )
-
-            checkbox_list.adapter = adapter
+            loadAdapter((checkbox_list.adapter as FilterRecycleAdapter).items
+                .map { item -> FilterItem(item.exp, value = b) }
+            )
         }
 
         super.onStart()
+    }
+
+    private fun loadExtras() {
+        val yearsToFilter = intent.getFloatArrayExtra(YEARS_TO_FILTER)!!.toList()
+        val receivedFilterStates = intent.getBooleanArrayExtra(CURRENT_FILTER)!!.toList()
+
+        filter = yearsToFilter.filterBy(receivedFilterStates).map { it.toInt() }
+
+        loadAdapter(
+            yearsToFilter.product(receivedFilterStates).map {
+                FilterItem(it.first, it.second)
+            }
+        )
+    }
+
+    private fun loadAdapter(items: List<FilterItem>) {
+        val adapter = FilterRecycleAdapter(items)
+
+        checkbox_list.adapter = adapter
     }
 
     @Suppress("UNUSED_PARAMETER")

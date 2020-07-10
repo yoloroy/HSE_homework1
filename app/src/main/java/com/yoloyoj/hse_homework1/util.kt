@@ -16,3 +16,10 @@ fun naming(years: Float): String {
         }
     return "$y лет"
 }
+
+// List<A>, List<B> -> List<Pair<A, B>>
+fun <A, B> List<A>.product(other: List<B>)
+        = mapIndexed { index, a -> a to other[index] }
+
+fun <T> Iterable<T>.filterBy(filter: List<Boolean>): Iterable<T>
+        = filterIndexed { index, _ -> filter[index] }

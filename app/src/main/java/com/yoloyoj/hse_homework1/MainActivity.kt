@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     fun updateFiltering(items: List<SkillItem>, currentFilter: List<Boolean>) {
         val intent = Intent(this, FilterActivity::class.java)
         intent.putExtra(
-            TO_FILTER,
+            YEARS_TO_FILTER,
             items
                 .map { item ->
                     item.experience
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                 .toFloatArray()
         )
         intent.putExtra(
-            SAVED_CHECKING,
+            CURRENT_FILTER,
             currentFilter.toBooleanArray()
         )
         startActivityForResult(intent, 0)
