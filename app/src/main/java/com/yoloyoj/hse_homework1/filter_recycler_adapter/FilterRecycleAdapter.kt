@@ -27,8 +27,8 @@ class FilterRecycleAdapter(var items: List<FilterItem>) : RecyclerView.Adapter<F
             view.text = filterItem.text
             view.isChecked = filterItem.value
 
-            view.setOnCheckedChangeListener { _, bool ->
-                items[position].value = bool
+            view.setOnCheckedChangeListener { _, checked ->
+                items[position].value = checked
             }
         }
     }
