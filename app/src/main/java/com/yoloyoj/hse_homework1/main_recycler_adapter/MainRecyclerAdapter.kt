@@ -14,49 +14,55 @@ import com.yoloyoj.hse_homework1.main_recycler_adapter.models.SkillFilter
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.SkillItem
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.UserInfo
 
-const val USER_INFO = 0
-const val PROJECT_INFO = 1
-const val HEADER_SKILLS = 2
-const val SKILL_ITEM = 3
+const val TYPE_USER_INFO = 0
+const val TYPE_PROJECT_INFO = 1
+const val TYPE_HEADER_SKILLS = 2
+const val TYPE_SKILL_ITEM = 3
 
 class MainRecyclerAdapter(
     private var items: List<Any>,
     private val filter: List<Boolean>
 ) : RecyclerView.Adapter<ViewHolder>() {
+    @Suppress("UNCHECKED_CAST")
+    val skillFilter: SkillFilter
+        get() = SkillFilter(
+            items.slice(3 until items.count()) as List<SkillItem>,
+            filter
+        )
 
     override fun getItemViewType(position: Int) =
         when (position) {
-            0 -> USER_INFO
-            1 -> PROJECT_INFO
-            2 -> HEADER_SKILLS
-            else -> SKILL_ITEM
+            0 -> TYPE_USER_INFO
+            1 -> TYPE_PROJECT_INFO
+            2 -> TYPE_HEADER_SKILLS
+            else -> TYPE_SKILL_ITEM
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            USER_INFO -> UserInfoHolder(
+            TYPE_USER_INFO -> UserInfoHolder(
                 inflater.inflate(
                     R.layout.user_info,
                     parent,
                     false
                 )
             )
-            PROJECT_INFO -> ProjectIdeaHolder(
+            TYPE_PROJECT_INFO -> ProjectIdeaHolder(
                 inflater.inflate(
                     R.layout.project_info,
                     parent,
                     false
                 )
             )
-            HEADER_SKILLS -> SkillFilterHolder(
+            TYPE_HEADER_SKILLS -> SkillFilterHolder(
                 inflater.inflate(
                     R.layout.header_skills,
                     parent,
                     false
                 )
             )
-            SKILL_ITEM -> SkillItemHolder(
+            TYPE_SKILL_ITEM -> SkillItemHolder(
                 inflater.inflate(
                     R.layout.skill_card_item,
                     parent,
@@ -68,18 +74,14 @@ class MainRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        @Suppress("UNCHECKED_CAST")
         when (getItemViewType(position)) {
-            USER_INFO ->
+            TYPE_USER_INFO ->
                 (holder as UserInfoHolder).bind(items[position] as UserInfo)
-            PROJECT_INFO ->
+            TYPE_PROJECT_INFO ->
                 (holder as ProjectIdeaHolder).bind(items[position] as ProjectIdea)
-            HEADER_SKILLS ->
-                (holder as SkillFilterHolder).bind(SkillFilter(
-                    items.slice(3 until items.count()) as List<SkillItem>,
-                    filter
-                ))
-            SKILL_ITEM ->
+            TYPE_HEADER_SKILLS ->
+                (holder as SkillFilterHolder).bind(skillFilter)
+            TYPE_SKILL_ITEM ->
                 (holder as SkillItemHolder).bind(items.available[position] as SkillItem)
         }
     }
