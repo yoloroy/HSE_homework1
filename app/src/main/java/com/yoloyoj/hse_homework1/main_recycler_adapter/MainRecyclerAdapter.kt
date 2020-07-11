@@ -5,10 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.yoloyoj.hse_homework1.R
-import com.yoloyoj.hse_homework1.main_recycler_adapter.holders.ProjectIdeaHolder
-import com.yoloyoj.hse_homework1.main_recycler_adapter.holders.SkillFilterHolder
-import com.yoloyoj.hse_homework1.main_recycler_adapter.holders.SkillItemHolder
-import com.yoloyoj.hse_homework1.main_recycler_adapter.holders.UserInfoHolder
+import com.yoloyoj.hse_homework1.main_recycler_adapter.holders.*
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.ProjectIdea
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.SkillFilter
 import com.yoloyoj.hse_homework1.main_recycler_adapter.models.SkillItem
@@ -74,15 +71,21 @@ class MainRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        holder as BindableHolder
         when (getItemViewType(position)) {
+
             TYPE_USER_INFO ->
-                (holder as UserInfoHolder).bind(items[position] as UserInfo)
+                holder.bind(items[position] as UserInfo)
+
             TYPE_PROJECT_INFO ->
-                (holder as ProjectIdeaHolder).bind(items[position] as ProjectIdea)
+                holder.bind(items[position] as ProjectIdea)
+
             TYPE_HEADER_SKILLS ->
-                (holder as SkillFilterHolder).bind(skillFilter)
+                holder.bind(skillFilter)
+
             TYPE_SKILL_ITEM ->
-                (holder as SkillItemHolder).bind(items.available[position] as SkillItem)
+                holder.bind(items.available[position] as SkillItem)
         }
     }
 

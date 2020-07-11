@@ -12,6 +12,18 @@ import com.yoloyoj.hse_homework1.main_recycler_adapter.models.UserInfo
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private val attrs = listOf(
+        UserInfo(
+            "Ларюшкин Сергей",
+            "Выпускник",
+            "https://github.com/yoloroy"
+        ),
+        ProjectIdea(
+            "очень крутой проект с очень оригинальными идеями"
+        ),
+        Any() // initialization in the adapter {SkillFilter}
+    )
+
     private var skills = listOf(
         SkillItem(
             "SQL",
@@ -65,17 +77,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadAdapter() {
         val adapter =
             MainRecyclerAdapter(
-                listOf(
-                    UserInfo(
-                        "Ларюшкин Сергей",
-                        "Выпускник",
-                        "https://github.com/yoloroy"
-                    ),
-                    ProjectIdea(
-                        "очень крутой проект с очень оригинальными идеями"
-                    ),
-                    Any() // initialization in the adapter {SkillFilter}
-                ) + skills,
+                attrs + skills,
                 skills.map { (it.experience.toInt() in filter) }
             )
 
