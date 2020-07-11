@@ -62,9 +62,7 @@ class FilterActivity : AppCompatActivity() {
 
     override fun onStart() {
         all_check.setOnCheckedChangeListener { _, b ->
-            updateAdapter((checkbox_list.adapter as FilterRecycleAdapter).items
-                .map { item -> FilterItem(item.exp, value = b) }
-            )
+            checkAll(b)
         }
 
         super.onStart()
@@ -74,12 +72,20 @@ class FilterActivity : AppCompatActivity() {
         val yearsToFilter = intent.getFloatArrayExtra(YEARS_TO_FILTER)!!.toList()
         val receivedFilterStates = intent.getBooleanArrayExtra(CURRENT_FILTER)!!.toList()
 
+        all_check.isChecked = receivedFilterStates.all { it }
+
         filter = yearsToFilter.filterBy(receivedFilterStates).map { it.toInt() }
 
         loadAdapter(
             yearsToFilter.product(receivedFilterStates).map {
                 FilterItem(it.first, it.second)
             }
+        )
+    }
+
+    private fun checkAll(check: Boolean) {
+        updateAdapter((checkbox_list.adapter as FilterRecycleAdapter).items
+            .map { item -> FilterItem(item.exp, value = check) }
         )
     }
 
