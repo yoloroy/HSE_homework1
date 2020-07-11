@@ -44,7 +44,7 @@ class FilterActivity : AppCompatActivity() {
 
         filter = savedInstanceState.getIntArray(CURRENT_FILTER)!!.toList()
 
-        loadAdapter(
+        updateAdapter(
             yearsToFilter.asList().product(savedChecks.asList()).map {
                 FilterItem(it.first, it.second)
             }
@@ -62,7 +62,7 @@ class FilterActivity : AppCompatActivity() {
 
     override fun onStart() {
         all_check.setOnCheckedChangeListener { _, b ->
-            loadAdapter((checkbox_list.adapter as FilterRecycleAdapter).items
+            updateAdapter((checkbox_list.adapter as FilterRecycleAdapter).items
                 .map { item -> FilterItem(item.exp, value = b) }
             )
         }
@@ -81,6 +81,13 @@ class FilterActivity : AppCompatActivity() {
                 FilterItem(it.first, it.second)
             }
         )
+    }
+
+    private fun updateAdapter(items: List<FilterItem>) {
+        (checkbox_list.adapter as FilterRecycleAdapter).apply {
+            this.items = items
+            notifyDataSetChanged()
+        }
     }
 
     private fun loadAdapter(items: List<FilterItem>) {
